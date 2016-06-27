@@ -1,4 +1,4 @@
-var searchControllers = angular.module('searchControllers', ['pdf','bootstrapLightbox','ngMap']);
+var searchControllers = angular.module('searchControllers', ['bootstrapLightbox','ngMap']);
 	
 
 searchControllers.controller('SurveySearchController', function($scope, $http, NgMap, $log){
@@ -74,29 +74,6 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 	
 });
 
-searchControllers.controller('PdfController', function($scope, $http, $log){
-	$scope.pdfName = 'Drones';
-	$scope.pdfUrl = 'images/Drones.pdf';
-	$scope.scroll = 0;
-	$scope.loading = 'loading';
-
-	$scope.getNavStyle = function(scroll) {
-	if(scroll > 100) return 'pdf-controls fixed';
-		else return 'pdf-controls';
-	}
-
-	$scope.onError = function(error) {
-		console.log(error);
-	}
-
-	$scope.onLoad = function() {
-		$scope.loading = '';
-	}
-
-	$scope.onProgress = function(progress) {
-		console.log(progress);
-	}
-});
 
 searchControllers.controller('MediaController', function($scope, Lightbox,$http,  $log){
 	$scope.images = [
