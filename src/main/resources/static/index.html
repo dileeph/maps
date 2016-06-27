@@ -15,12 +15,28 @@
     <link href="./vendor/bootstrap-theme.min.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="./vendor/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
+	<link href="./vendor/angular-bootstrap-lightbox.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="./vendor/theme.css" rel="stylesheet">
-
+<!--
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script src="./app/app.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>-->
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+	<script src="./vendor/angular-simple-logger.min.js"></script>
+	<script src="./vendor/angular-google-maps.min.js"></script>-->
+	
+	<!--<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+	<script src="./vendor/ng-map.min.js"></script>
+	<script src="./vendor/angular-bootstrap-lightbox.min.js"></script>
+	<script src="./vendor/pdf.js"></script>
+	<script src="./vendor/angular-pdf.js"></script>
+	<script src="./js/app.js"></script>
+	<script src="./js/search-controller.js"></script>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,131 +61,19 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="http://getbootstrap.com/examples/theme/#">Home</a></li>
-            <li><a href="http://getbootstrap.com/examples/theme/#about">About</a></li>
-            <li><a href="http://getbootstrap.com/examples/theme/#contact">Contact</a></li>
+            <li ><a href="#/survey">Search</a></li>
+            <li><a href="#/pdf">Pdf Viewer</a></li>
+			<li><a href="#/media">Media Viewer</a></li>
+          
           
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
-<div class="container theme-showcase" role="main"  ng-controller="searchController">
-	<div class="page-header">
-        <h1>Search Capability Demo</h1>
-    </div>
-
-	<!-- top row -->
-	<div class="row">		
-		<div class="col-sm-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Criteria</h3>
-				</div>
-				<div class="panel-body">
-					<p class="bg-info">
-						Representative Search Criteria
-					</p>
-					<form class="form-inline">
-						<div class="form-group">
-							<label class="sr-only" for="requestnumber">Request Number</label>
-							<input type="text" class="form-control " id="requestnumber" ng-model="criteria.requestNumber" placeholder="Request Number">
-						</div>
-						
-						<div class="form-group">
-							<label class="sr-only" for="requestedby">Requested By</label>
-							<input type="text" class="form-control" style="width:360px" id="requestedby" ng-model="criteria.requestedBy"  placeholder="Request Placed By">
-						</div>
-
-						<!-- <button type="submit" class="btn btn-danger">Search By Request</button> -->
-					<!-- </form>
-					<form class="form-inline" > -->
-						<div class="form-group">
-							<label  for="fromdate">From</label>
-							<input type="date" class="form-control" id="fromdate" ng-model="criteria.fromDate" placeholder="From Date">
-						</div>
-						<div class="form-group">
-							<label  for="todate">To </label>
-							<input type="date" class="form-control" id="todate"  ng-model="criteria.toDate" placeholder="To Date">
-						</div>
-
-						<!-- <button type="submit" class="btn btn-danger">Search By Date</button> -->
-					</form>	
-					<form class="form-inline" >
-						<div class="form-group">
-							<label class="sr-only" for="lat">Latitude</label>
-							<input type="number" step=".0001" class="form-control" id="lat"  ng-model="criteria.latitude" placeholder="Latitude">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="lon">Longitude</label>
-							<input type="number" step=".0001"  class="form-control" id="lon" ng-model="criteria.longitude" placeholder="Longitude">
-						</div>						
-						<div class="form-group">
-							<label class="sr-only" for="range">Range</label>
-							<input type="number" class="form-control" id="range" ng-model="criteria.distance" placeholder="Miles">
-						</div>
-						<button type="submit" class="btn btn-danger" ng-click="search()">Search</button>
-					</form>					
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--second row-->
-	<div class="row" >	
-		<!-- left panel -->
-		<div class="col-sm-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				<h3 class="panel-title">Results</h3>
-				</div>
-				<div class="panel-body">
-        
-					<div class="list-group" ng-repeat="result in results">
-						<button type="button" ng-click="selectResult(result.latitude,result.longitude)" class="list-group-item">
-							<h4 class="list-group-item-heading">{{result.requestedBy}}</h4>
-							<p class="list-group-item-text">Req No: {{result.requestNumber}}, Distance in miles: {{result.distance}}</p>
-						</button>
-					</div>
-        
-				</div>
-			</div>
-		</div>
-		<!-- right panel -->
-		<div class="col-sm-8">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				<h3 class="panel-title">Map</h3>
-				</div>
-				<div class="panel-body">
-			
-					<div id="map" style="height:400px;width:700px"></div>
-					<script>
-					  var map;
-					  var bounds;
-					  function initMap() {
-						map = new google.maps.Map(document.getElementById('map'), {
-						  center: {lat: 34.397, lng: -95.644},
-						  zoom: 6
-						});
-						bounds = new google.maps.LatLngBounds();
-					  }
-					</script>
-					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSyA9nSTL6-bhKwD1SFsFU1Al4cPlGoWY&callback=initMap" async defer></script>
-				
-					<div >
-						<p class="bg-warning">
-						This demo uses Google Maps API to show the map. Using Google Maps API in production needs license from Google.
-						The map provider can be changed without affecting other features of the demo.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
-	
+<div class="container theme-showcase" role="main" >
+	<div ng-view></div>
 </div>
-	
 	
 	  <!-- Bootstrap core JavaScript
     ================================================== -->
