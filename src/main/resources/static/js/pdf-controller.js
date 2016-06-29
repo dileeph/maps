@@ -5,11 +5,8 @@ pdfControllers.controller('PdfController', function($scope, $http, $log){
 	$scope.pdfUrl = 'images/Drones.pdf';
 	$scope.scroll = 0;
 	$scope.loading = 'loading';
-	//$scope.pageNum=1;
+	$scope.pageNum=1;
 
-	$scope.pdfconfig = {
-		pageNum:1
-	}
 	
 	$scope.getNavStyle = function(scroll) {
 	if(scroll > 100) return 'pdf-controls fixed';
@@ -22,7 +19,7 @@ pdfControllers.controller('PdfController', function($scope, $http, $log){
 
 	$scope.onLoad = function() {
 		$scope.loading = '';
-		//$scope.pageNum=1;
+		$scope.pageNum=1;
 	}
 
 	$scope.onProgress = function(progress) {
