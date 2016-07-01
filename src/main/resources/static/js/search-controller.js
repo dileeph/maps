@@ -78,17 +78,17 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 searchControllers.controller('MediaController', function($scope, Lightbox,$http,  $log){
 	$scope.images = [
 		{
-		  'url': 'images/DSC00084.JPG',
+		  'url': 'images/image1.JPG',
 		  'caption': 'Image 1'
 		 
 		},
 		{
-		  'url': 'images/DSC00085.JPG',
+		  'url': 'images/image2.PNG',
 		  'caption': 'Image 2'
 		},
 		{
 			'type':'image',
-		  'url': 'images/DSC00086.JPG',
+		  'url': 'images/image3.TIF',
 		  'caption': 'Image 3'
 		 },
 		 

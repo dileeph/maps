@@ -118,7 +118,7 @@ public class SurveyRepositoryTest {
 		criteria.setToDate(cal2);
 		List<Survey> results = searchRepo.searchSurvey(criteria);
 		
-		Assert.assertTrue(results.size() == 0);
+		Assert.assertTrue(results.size() == 8);
 	}
 	@Test
 	public void checkWithDateRangeFromPresentToAbsent(){
@@ -131,7 +131,7 @@ public class SurveyRepositoryTest {
 		criteria.setToDate(null);
 		List<Survey> results = searchRepo.searchSurvey(criteria);
 		
-		Assert.assertTrue(results.size() == 0);
+		Assert.assertTrue(results.size() == 8);
 	}
 	@Test
 	public void checkWithRequestByAndDate(){
