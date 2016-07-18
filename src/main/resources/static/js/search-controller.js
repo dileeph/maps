@@ -13,7 +13,10 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 		$scope.markers = [];
 		
 		var marker;	
-		var bounds;
+		var bounds = new google.maps.LatLngBounds();
+		
+		
+		
 		$scope.search = function(){	
 			$http.post('./findsurveys', $scope.criteria)
 			.then(function successCallback(response) {
@@ -27,10 +30,12 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 						zoom:6
 					});
 					$scope.markers.push(marker);
-					
+					myLatLng = new google.maps.LatLng({lat: $scope.results[i].latitude, lng:  $scope.results[i].longitude}); 
+					bounds.extend(myLatLng);
+					map.fitBounds(bounds);
 				}
 				//map.setZoom(4);
-				$scope.setMarkers();
+				//$scope.setMarkers();
 			}, function errorCallback(response) {
 				$log.debug(response.status);
 				$log.debug(response.data);
@@ -44,11 +49,17 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 			marker = new google.maps.Marker({
 				position: {lat: lat, lng: lon},
 				map: map
+				
 			});
 			$scope.clearMarkers();
-			
+
 			$scope.markers.push(marker);
-			$scope.setMarkers();
+			myLatLng = new google.maps.LatLng({lat: lat, lng:  lon}); 
+			bounds = new google.maps.LatLngBounds();
+			bounds.extend(myLatLng);
+			map.fitBounds(bounds);
+			map.setZoom(8);
+			//$scope.setMarkers();
 			
 		};
 		
@@ -63,10 +74,9 @@ searchControllers.controller('SurveySearchController', function($scope, $http, N
 		$scope.setMarkers = function(){
 			for(i=0; i < $scope.markers.length; i++){
 				$scope.markers[i].setMap(map);
-				//bounds.extend($scope.markers[i].position);
+				bounds.extend($scope.markers[i].position);
 				
 			}
-			//map.fitBounds(bounds);
 			
 		};
 			
